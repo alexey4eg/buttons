@@ -39,7 +39,8 @@
             this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBindImage = new System.Windows.Forms.ToolStripMenuItem();
-            this.матрицаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuBindMatrix = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemShowMatrix = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -106,9 +107,10 @@
             this.редактироватьToolStripMenuItem,
             this.удалитьToolStripMenuItem,
             this.menuBindImage,
-            this.матрицаToolStripMenuItem});
+            this.menuBindMatrix,
+            this.menuItemShowMatrix});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 136);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // редактироватьToolStripMenuItem
@@ -132,12 +134,19 @@
             this.menuBindImage.Text = "Прикрепить изображение...";
             this.menuBindImage.Click += new System.EventHandler(this.menuBindImage_Click);
             // 
-            // матрицаToolStripMenuItem
+            // menuBindMatrix
             // 
-            this.матрицаToolStripMenuItem.Name = "матрицаToolStripMenuItem";
-            this.матрицаToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.матрицаToolStripMenuItem.Text = "Матрица...";
-            this.матрицаToolStripMenuItem.Click += new System.EventHandler(this.матрицаToolStripMenuItem_Click);
+            this.menuBindMatrix.Name = "menuBindMatrix";
+            this.menuBindMatrix.Size = new System.Drawing.Size(227, 22);
+            this.menuBindMatrix.Text = "Привязать матрицу...";
+            this.menuBindMatrix.Click += new System.EventHandler(this.матрицаToolStripMenuItem_Click);
+            // 
+            // menuItemShowMatrix
+            // 
+            this.menuItemShowMatrix.Name = "menuItemShowMatrix";
+            this.menuItemShowMatrix.Size = new System.Drawing.Size(227, 22);
+            this.menuItemShowMatrix.Text = "Вывод матрицы";
+            this.menuItemShowMatrix.Click += new System.EventHandler(this.menuItemShowMatrix_Click);
             // 
             // frmMain
             // 
@@ -173,7 +182,8 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem помощьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuBindImage;
-        private System.Windows.Forms.ToolStripMenuItem матрицаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuBindMatrix;
+        private System.Windows.Forms.ToolStripMenuItem menuItemShowMatrix;
     }
 }
 

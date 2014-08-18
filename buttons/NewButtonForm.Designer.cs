@@ -93,7 +93,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "NewButtonForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "NewButtonForm";
+            this.Text = "Установить текст";
             this.Load += new System.EventHandler(this.NewButtonForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

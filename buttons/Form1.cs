@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace buttons
 {
@@ -80,6 +81,7 @@ namespace buttons
                             var button = new ButtonModel(name, color, clicked);
                             buttons[buttons.Count - 1].Add(button);
                             button.image = infile.ReadLine();
+                            parseMatrix(infile.ReadLine(), button);
                         }
                     }
                 }
@@ -111,7 +113,30 @@ namespace buttons
             {
                 //не смог сохранить статистику
             }
+
+            Settings.maxtrix = new MatrixCell[Settings.matrixSize, Settings.matrixSize];
+            Settings.MatrixSelectionColor = Settings.DefaultMatrixSelectionColor;
         }
+
+        private void parseMatrix(String xml, ButtonModel button)
+        {
+            var doc = new XmlDocument();
+            try
+            {
+                doc.LoadXml(xml);
+                var root = doc.SelectSingleNode("matrices");
+                foreach (XmlNode node in root.ChildNodes)
+                {
+                    var matrix = Matrix.parseMatrixRecursive(node);
+                    button.matrices.Add(matrix);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -210,6 +235,7 @@ namespace buttons
                         {
                             outfile.WriteLine("Кнопка: {0} Цвет: {1}", buttons[i][j].name, buttons[i][j].color.ToArgb());
                             outfile.WriteLine(buttons[i][j].image);
+                            outfile.WriteLine(buttons[i][j].MakeMatrixXml());
                         }
                     }
                 }
@@ -375,14 +401,47 @@ namespace buttons
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             if (contextMenuStrip1.SourceControl is Button)
+            {
                 menuBindImage.Visible = true;
+                menuBindMatrix.Visible = true;
+                var model =  (contextMenuStrip1.SourceControl as Button).Tag as ButtonModel;
+                if (model.matrices.Count > 0)
+                    menuItemShowMatrix.Visible = true;
+                else
+                    menuItemShowMatrix.Visible = false;
+
+            }
             else
+            {
                 menuBindImage.Visible = false;
+                menuBindMatrix.Visible = false;
+                menuItemShowMatrix.Visible = false;
+            }
         }
 
         private void матрицаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new MatrixForm().ShowDialog();
+            var button = contextMenuStrip1.SourceControl as Button;
+            var model = button.Tag as ButtonModel;
+            Matrix matrix;
+            matrix = new Matrix();
+            var innerform = new MatrixForm(matrix, model);
+            if (innerform.ShowDialog() == DialogResult.OK)
+            {
+                model.matrices.Add(matrix);     
+            }
+        }
+
+        private void menuItemShowMatrix_Click(object sender, EventArgs e)
+        {
+            var button = contextMenuStrip1.SourceControl as Button;
+            var model = button.Tag as ButtonModel;
+            foreach (Matrix matrix in model.matrices)
+            {
+                var form = new MatrixForm(matrix, model);
+                form.removeOkCancelButtons();
+                form.Show();
+            }
         }
     }
 }
